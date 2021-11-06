@@ -83,7 +83,7 @@ def checkDayFilterByDay(bars,symbol= None):
         b= BackTest(bot, bars,symbol).run()
 
 pair= "BTCUSD"
-pair= "BTCUSDT"
+# pair= "BTCUSDT"
 #pair= "ETHUSD"
 
 exchange= 'bybit'
@@ -164,16 +164,14 @@ runOpti(bars_oos, funding=funding,
 #'''
 
 bot=MultiStrategyBot(logger=logger, directionFilter= 0)
-bot.add_strategy(KuegiStrategy()
-                 )
-
-bot.add_strategy(SfpStrategy()
-                 )
+bot.add_strategy(KuegiStrategy().withChannel(100,1,1,0,0))
+# .withChannel(...)
+bot.add_strategy(SfpStrategy())
 
 b= BackTest(bot, bars_full, funding=funding, symbol=symbol,market_slipage_percent=0.15).run()
 
 #performance chart with lots of numbers
-bot.create_performance_plot(bars).show()
+# bot.create_performance_plot(bars).show()
 
 # chart with signals:
 b.prepare_plot().show()
